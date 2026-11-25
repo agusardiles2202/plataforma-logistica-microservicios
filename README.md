@@ -1,17 +1,21 @@
-# Plataforma de Logística y Transporte de Cargas (Microservicios)
+# Plataforma de Transporte de Contenedores — Backend Distribuido con Microservicios, Docker y Keycloak
 
-Sistema backend distribuido basado en arquitectura de **microservicios** para la gestión integral de solicitudes de transporte de contenedores, cálculo de rutas tentativas con distancias geográficas reales, gestión de depósitos/estadías, tarifas dinámicas y seguridad centralizada mediante OAuth2 / JWT.
+Sistema backend distribuido en **Java 21 + Spring Boot 3.5** para gestionar solicitudes de transporte de contenedores entre depósitos: calcula rutas tentativas con distancias geográficas reales, administra estadías, aplica tarifas dinámicas y centraliza la seguridad mediante **Keycloak (OAuth2 / JWT)**, todo orquestado con **Docker Compose**.
 
 ![Diagrama de Contenedores](docs/diagrama_contenedores.jpg)
 
 ---
+
+## ¿Qué problema resuelve?
+
+Una empresa de transporte necesita coordinar múltiples operadores, administradores y transportistas que realizan solicitudes de traslado de contenedores entre depósitos distribuidos geográficamente. El sistema calcula automáticamente las rutas posibles, verifica la compatibilidad de peso/volumen de los camiones, estima el costo total del traslado y controla que cada rol de usuario solo acceda a las operaciones que le corresponden.
 
 ## ¿Qué hace el sistema?
 
 - **Enrutamiento y Seguridad Centralizada (`ms-apigateway`):** Punto único de entrada (Spring Cloud Gateway WebFlux) que valida tokens JWT emitidos por **Keycloak** y aplica control de acceso basado en roles (`ROLE_ADMIN`, `ROLE_OPERADOR`, `ROLE_CLIENTE`, `ROLE_TRANSPORTISTA`).
 - **Gestión de Solicitudes y Rutas (`ms-solicitud`):** Alta y seguimiento de solicitudes de transporte, asignación de camiones verificando compatibilidad de peso/volumen, planificación de tramos y cálculo de distancias mediante **Google Maps Distance Matrix API**.
 - **Gestión de Contenedores y Depósitos (`ms-contenedor`):** Administración de contenedores, depósitos intermedios y cálculo de costos diarios de estadía.
-- **Motor de Tarifas y Costos (`ms-tarifa`):** Cálculo dinámico del costo total de transporte considerando combustible por kilómetro, cargo de gestión por tramo, costo base del camión y estadía en depósitos según tarifas vigentes.
+- **Motor de Tarifas y Costos (`ms-tarifa`):** Cálculo dinámico del costo total considerando combustible por kilómetro, cargo de gestión por tramo, costo base del camión y estadía en depósitos según tarifas vigentes.
 
 ---
 
