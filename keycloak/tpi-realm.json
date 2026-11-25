@@ -1,0 +1,91 @@
+{
+  "realm": "tpi-realm",
+  "enabled": true,
+  "users": [
+    {
+      "username": "admin",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["ADMIN"]
+    },
+    {
+      "username": "operador1",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "operador123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["OPERADOR"]
+    },
+    {
+      "username": "cliente1",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "cliente123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["CLIENTE"]
+    },
+    {
+      "username": "transportista1",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "transportista123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["TRANSPORTISTA"]
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "ADMIN",
+        "description": "Administrador del sistema"
+      },
+      {
+        "name": "OPERADOR",
+        "description": "Operador de logística"
+      },
+      {
+        "name": "CLIENTE",
+        "description": "Cliente que solicita transporte"
+      },
+      {
+        "name": "TRANSPORTISTA",
+        "description": "Transportista que realiza envíos"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "postman-client",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [
+        "http://localhost:*",
+        "https://oauth.pstmn.io/v1/callback"
+      ],
+      "webOrigins": ["*"],
+      "protocol": "openid-connect"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+﻿# Maven & Java
+target/
+*.jar
+*.war
+*.class
+.mvn/timing.properties
+BOOT-INF/
+
+# Env & Data
+.env
+pgdata/
+
+# IDEs & OS
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db

@@ -1,0 +1,56 @@
+﻿server:
+  port: 8084
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${POSTGRES_DB:tp_backend_db}?options=-c%20TimeZone%3DUTC
+    driverClassName: org.postgresql.Driver
+    username: ${POSTGRES_USER:tp_user}
+    password: ${POSTGRES_PASSWORD:tp_pass}
+  jpa:
+    hibernate:
+      ddl-auto: none     # usamos schema.sql
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          time_zone: UTC
+  sql:
+    init:
+      mode: never       # inicializaciÃ³n la hace Docker
+
+h2:
+  console:
+    enabled: true
+
+# Google Maps API Configuration
+google:
+  maps:
+    apikey: ${GOOGLE_MAPS_API_KEY:YOUR_GOOGLE_MAPS_API_KEY}
+
+# Microservices Communication
+contenedor:
+  service:
+    url: ${CONTENEDOR_SERVICE_URL:http://ms-contenedor:8083}
+
+# Swagger UI Configuration
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    tp.backend.ms_solicitud: INFO
+    tp.backend.ms_solicitud.controller: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+

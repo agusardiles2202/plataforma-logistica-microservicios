@@ -1,0 +1,7 @@
+# Configuración para entorno Docker
+# Usa nombres de contenedores en lugar de localhost
+
+apigw:
+  url-solicitud: http://ms-solicitud:8084
+  url-tarifa: http://ms-tarifa:8085
+  url-contenedor: http://ms-contenedor:8083

@@ -1,0 +1,53 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ms-apigateway
+
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          "[/**]":
+            allowedOrigins:
+              - "http://localhost:5173"
+              - "http://localhost:4200"
+              - "http://localhost:3000"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+
+  main:
+    allow-bean-definition-overriding: true
+
+  # Configuración de Spring Security con OAuth2/JWT
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # IMPORTANTE: issuer-uri debe coincidir EXACTAMENTE con el "iss" del token JWT
+          # Keycloak emite tokens con iss=http://localhost:8081/realms/tpi-realm
+          issuer-uri: http://localhost:8081/realms/tpi-realm
+          # Para obtener las claves públicas, el Gateway (dentro de Docker) usa host.docker.internal
+          jwk-set-uri: http://host.docker.internal:8081/realms/tpi-realm/protocol/openid-connect/certs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,gateway"
+
+# Configurable backend URIs
+apigw:
+  url-solicitud: http://localhost:8084
+  url-tarifa: http://localhost:8085
+  url-contenedor: http://localhost:8083
+
+# Logging para debug de seguridad
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.web: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    tp.backend.ms_apigateway: DEBUG
